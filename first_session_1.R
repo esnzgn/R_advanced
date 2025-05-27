@@ -206,15 +206,26 @@ apply(employee_data[,is_numeric], 1, mean)
 # write a for loop instead of the apply function above
 # rm(col_i)
 
+outcome_row_mean <- NULL
 
 for (row_i in  1:nrow(employee_data)){
   print(mean(as.numeric(employee_data[row_i, is_numeric])))
+  outcome_row_mean[row_i] <- mean(as.numeric(employee_data[row_i, is_numeric]))
 }
 
 # 1- storing the outcome of the above workflow in variable
 # 2- define func called mean_cal to find the mean of col or rows based on user preferences
 
-
+mean_cal <- function(data, by = "row", is_numeric){
+  # check if the user want the col or row
+  if (by == "row"){
+    result <- apply(employee_data[,is_numeric], 1, mean)
+  } else if (by = "column") {
+    result <- apply(employee_data[,is_numeric], 2, mean)
+  }
+  # return final result
+  return(result)
+}
 
 
 

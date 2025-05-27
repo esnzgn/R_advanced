@@ -131,6 +131,104 @@ library()
 # error
 
 
+# 
+(5 + 3) * (6 - 2) / 2^2
+
+
+# matrix 
+set.seed(347)
+large.matrix <- matrix(runif(25, 1, 100), nrow = 5)
+dim(large.matrix)
+
+
+row_sum <- rowSums(large.matrix)
+
+
+col_means <- colMeans(large.matrix)
+
+ages <- c(22, 32, 13, 35, 40, 50)
+ages[ages > 30]
+
+# ages[ages > 30 & ages < 45 & ages != 40] and not 40 
+
+# define first fucntion 
+
+calculate_area <- function(radius){
+  area <- pi * radius^2
+  return(area)
+}
+
+calculate_area(5)
+
+
+employee_data <- data.frame(
+  Name = c("Alice", "Bob", "Charlie", "David"),
+  Age = c(25, 30, 35, 40),
+  Salary = c(50000, 60000, 70000, 80000)
+)
+
+# mean salary of the employee df
+mean(employee_data$Salary)
+
+library(tibble)
+
+employee_tibble <- tibble(
+  Name = c("Alice", "Bob", "Charlie", "David"),
+  Age = c(25, 30, 35, 40),
+  Salary = c(50000, 60000, 70000, 80000)
+)
+
+employee_tibble
+
+# subsetting
+employee_data$Name[employee_data$Age > 30]
+
+# loop
+for (i in 1:5){
+  print(i)
+  print(i^2)
+}
+
+apply(employee_data[, (2,3)], 1, mean)
+
+
+
+# is.numeric()
+
+for (col_i in 1:ncol(employee_data)){
+  print(col_i)  
+  is_numeric[col_i] <- is.numeric(employee_data[, col_i])
+  print(is_numeric)
+}
+
+apply(employee_data[,is_numeric], 1, mean)
+
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

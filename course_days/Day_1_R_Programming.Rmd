@@ -1,0 +1,205 @@
+
+---
+title: "R Programming: Day 1 - Introduction and Basics"
+author: "Instructor Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Introduction
+
+Welcome to the first day of our R programming course! Today, we'll be covering the basics of R, getting familiar with RStudio, and running our first R commands. We'll go through the following concepts:
+
+- Setting up and navigating RStudio
+- Writing and executing basic R code
+- Working with basic data types and variables
+- Using operators and performing arithmetic
+- Managing your workflow with scripts
+
+## 1. Setting up RStudio
+
+R is a powerful programming language for data analysis, and RStudio is an Integrated Development Environment (IDE) that makes working with R easier.
+
+We’ll be working within RStudio today, but the same principles apply if you’re using any other R interface. The key elements of RStudio are the **Console**, **Script Editor**, **Environment**, and **Plots** panels. You'll use these to write and execute code, view data, and create plots.
+
+## 2. Writing and Running Your First Command
+
+Let’s start by executing a simple arithmetic operation in the R console.
+
+### Example 1: Running Arithmetic Operations
+
+Open the **Console** in RStudio and type the following:
+
+```r
+10 + 20
+```
+
+When you press Enter, you should see the result printed below the command:
+
+```r
+[1] 30
+```
+
+This means that R successfully evaluated your expression and returned the result. The `>` symbol is just the prompt and isn't part of the code itself.
+
+### Example 2: Explicit Printing with `print()`
+
+If you want to explicitly print the result of an operation, you can use the `print()` function. For example:
+
+```r
+print(10 + 20)
+```
+
+This will give the same result:
+
+```r
+[1] 30
+```
+
+---
+
+## 3. Operators in R
+
+### 3.1 Assignment Operator
+
+In R, we use the `<-` operator to assign values to variables. Here’s how to assign the result of an operation to a variable:
+
+```r
+a <- 10 + 20
+```
+
+Now, the value `30` is stored in the variable `a`. You can check the value of `a` by typing:
+
+```r
+a
+```
+
+---
+
+### 3.2 Arithmetic Operators
+
+R supports several arithmetic operators:
+
+- **`+`**: addition
+- **`-`**: subtraction
+- **`*`**: multiplication
+- **`/`**: division
+- **`^`**: exponentiation
+
+For example, to calculate 5 raised to the power of 4, you can use:
+
+```r
+5^4
+```
+
+Result:
+
+```r
+[1] 625
+```
+
+---
+
+### 3.3 Relational and Logical Operators
+
+Relational operators are used to compare values. Examples include:
+
+- **`<`**: less than
+- **`>`**: greater than
+- **`==`**: exactly equal to
+
+Logical operators include:
+
+- **`&`**: AND
+- **`|`**: OR
+- **`!`**: NOT
+
+### Example 3: Using Logical Operators
+
+```r
+x <- 5
+x > 3 & x < 10  # TRUE because both conditions are true
+```
+
+---
+
+## 4. Working with Vectors
+
+In R, a **vector** is a sequence of elements of the same type. Let’s create a simple vector and perform operations on it.
+
+### Example 4: Creating a Vector
+
+```r
+my_vector <- c(1, 2, 3, 4, 5)
+```
+
+To access elements of the vector, you can use the index:
+
+```r
+my_vector[3]  # Access the third element
+```
+
+---
+
+## 5. Handling Errors in R
+
+In R, small typos can lead to errors. R will often give you an error message indicating what went wrong. Let’s see an example:
+
+### Example 5: Typo in Code
+
+```r
+10 = 20  # This will cause an error
+```
+
+R doesn’t allow you to use `=` for assignment in expressions. If you accidentally write `10 = 20`, R will throw an error like this:
+
+```r
+Error in 10 = 20 : invalid (do_set) left-hand side to assignment
+```
+
+To fix this, ensure you're using the correct operators.
+
+---
+
+## 6. Organizing Your Code into Scripts
+
+As you get more comfortable with R, you'll want to organize your code into scripts. RStudio allows you to write and save your code in scripts for later use. Start by opening a new script:
+
+- Click on **File > New File > R Script**.
+- Write your code in the script editor, and save it as a `.R` file.
+
+### Example 6: Saving and Running a Script
+
+Let’s create a script that calculates the square of a number:
+
+```r
+# square_number.R
+square_number <- function(x) {
+  return(x^2)
+}
+
+# Now call the function
+square_number(5)
+```
+
+Save this script, and then you can run it directly from the **Console** using the `source()` function:
+
+```r
+source("square_number.R")
+```
+
+---
+
+## 7. Conclusion
+
+By the end of today’s session, you should have a solid foundation in basic R syntax, including working with operators, variables, vectors, and writing scripts. Remember, the key to mastering R is practice. The more you experiment with the code, the more comfortable you’ll become!
+
+---
+
+# Assignment
+
+1. Try running a few more arithmetic operations in the R console.
+2. Create a vector with at least 5 elements and access specific values from it.
+3. Write your first R script and save it. Use the `source()` function to run it in the console.
+
+---

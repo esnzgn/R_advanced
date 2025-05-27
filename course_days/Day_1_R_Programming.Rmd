@@ -1,176 +1,149 @@
 
 ---
-title: "R Programming: Day 1 - Introduction and Basics"
-author: "Instructor Name"
+title: "R Programming: Day 1 - Introduction, Basics, and Piping"
+author: "Ehsan"
 date: "`r Sys.Date()`"
 output: html_document
 ---
 
-# Introduction
+# Welcome to Day 1 of the R Programming Course
 
-Welcome to the first day of our R programming course! Today, we'll be covering the basics of R, getting familiar with RStudio, and running our first R commands. We'll go through the following concepts:
+This is the first day of our R programming course, where we will lay a strong foundation by exploring basic R syntax, operators, and functions, followed by practical work with data. By the end of this day, you will be comfortable with basic operations in R, handling data structures, and using pipes (`%>%`) for more readable and efficient code.
 
-- Setting up and navigating RStudio
-- Writing and executing basic R code
-- Working with basic data types and variables
-- Using operators and performing arithmetic
-- Managing your workflow with scripts
+---
+
+## Table of Contents
+
+- [Setting up RStudio](#1-setting-up-rstudio)
+- [Basic Arithmetic Operations](#2-basic-arithmetic-operations)
+- [Operators in R](#3-operators-in-r)
+- [Working with Vectors](#4-working-with-vectors)
+- [Handling Errors in R](#5-handling-errors-in-r)
+- [Writing and Organizing Scripts](#6-writing-and-organizing-scripts)
+- [Piping in R](#7-piping-in-r)
+- [Penguin Analysis Project](#8-penguin-analysis-project)
+
+---
 
 ## 1. Setting up RStudio
 
-R is a powerful programming language for data analysis, and RStudio is an Integrated Development Environment (IDE) that makes working with R easier.
+RStudio is the Integrated Development Environment (IDE) we will use for this course. It makes working with R much easier by providing an interactive console, script editor, and other helpful tools. It is crucial to familiarize yourself with the RStudio interface, which includes the **Console**, **Script Editor**, **Environment**, and **Plots** panels.
 
-We’ll be working within RStudio today, but the same principles apply if you’re using any other R interface. The key elements of RStudio are the **Console**, **Script Editor**, **Environment**, and **Plots** panels. You'll use these to write and execute code, view data, and create plots.
+We will be running all the code and examples in this course through RStudio.
 
-## 2. Writing and Running Your First Command
+---
 
-Let’s start by executing a simple arithmetic operation in the R console.
+## 2. Basic Arithmetic Operations
 
-### Example 1: Running Arithmetic Operations
-
-Open the **Console** in RStudio and type the following:
+Let’s begin with some simple arithmetic operations to get comfortable with the R console. Open the **Console** and type the following:
 
 ```r
 10 + 20
 ```
 
-When you press Enter, you should see the result printed below the command:
-
+**Output:**
 ```r
 [1] 30
 ```
 
-This means that R successfully evaluated your expression and returned the result. The `>` symbol is just the prompt and isn't part of the code itself.
+This is a simple addition operation. In R, the `>` symbol is the prompt, and you don’t need to type it.
 
-### Example 2: Explicit Printing with `print()`
-
-If you want to explicitly print the result of an operation, you can use the `print()` function. For example:
+To print values explicitly, you can use `print()`:
 
 ```r
 print(10 + 20)
-```
-
-This will give the same result:
-
-```r
-[1] 30
 ```
 
 ---
 
 ## 3. Operators in R
 
-### 3.1 Assignment Operator
+R supports several operators for arithmetic and comparisons:
 
-In R, we use the `<-` operator to assign values to variables. Here’s how to assign the result of an operation to a variable:
+### Assignment Operator
+
+Use `<-` for assigning values to variables:
 
 ```r
 a <- 10 + 20
 ```
 
-Now, the value `30` is stored in the variable `a`. You can check the value of `a` by typing:
+### Arithmetic Operators
 
-```r
-a
-```
+- **`+`**: Addition
+- **`-`**: Subtraction
+- **`*`**: Multiplication
+- **`/`**: Division
+- **`^`**: Exponentiation
 
----
-
-### 3.2 Arithmetic Operators
-
-R supports several arithmetic operators:
-
-- **`+`**: addition
-- **`-`**: subtraction
-- **`*`**: multiplication
-- **`/`**: division
-- **`^`**: exponentiation
-
-For example, to calculate 5 raised to the power of 4, you can use:
+Example:
 
 ```r
 5^4
 ```
 
-Result:
-
+**Output:**
 ```r
 [1] 625
 ```
 
----
+### Relational Operators
 
-### 3.3 Relational and Logical Operators
+Used to compare values:
 
-Relational operators are used to compare values. Examples include:
-
-- **`<`**: less than
-- **`>`**: greater than
-- **`==`**: exactly equal to
-
-Logical operators include:
-
-- **`&`**: AND
-- **`|`**: OR
-- **`!`**: NOT
-
-### Example 3: Using Logical Operators
-
-```r
-x <- 5
-x > 3 & x < 10  # TRUE because both conditions are true
-```
+- **`==`**: Exactly equal to
+- **`<`**: Less than
+- **`>`**: Greater than
 
 ---
 
 ## 4. Working with Vectors
 
-In R, a **vector** is a sequence of elements of the same type. Let’s create a simple vector and perform operations on it.
+In R, a **vector** is a sequence of elements of the same type. Here’s how you create and access a vector:
 
-### Example 4: Creating a Vector
+### Create a Vector
 
 ```r
 my_vector <- c(1, 2, 3, 4, 5)
 ```
 
-To access elements of the vector, you can use the index:
+### Access Elements in a Vector
 
 ```r
 my_vector[3]  # Access the third element
+```
+
+**Output:**
+```r
+[1] 3
 ```
 
 ---
 
 ## 5. Handling Errors in R
 
-In R, small typos can lead to errors. R will often give you an error message indicating what went wrong. Let’s see an example:
-
-### Example 5: Typo in Code
+R is sensitive to syntax errors, and even small mistakes can lead to errors. Here's an example of a common typo:
 
 ```r
-10 = 20  # This will cause an error
+10 = 20  # Error in syntax
 ```
 
-R doesn’t allow you to use `=` for assignment in expressions. If you accidentally write `10 = 20`, R will throw an error like this:
-
+**Error:**
 ```r
 Error in 10 = 20 : invalid (do_set) left-hand side to assignment
 ```
 
-To fix this, ensure you're using the correct operators.
+Always check the error message and fix the syntax accordingly.
 
 ---
 
-## 6. Organizing Your Code into Scripts
+## 6. Writing and Organizing Scripts
 
-As you get more comfortable with R, you'll want to organize your code into scripts. RStudio allows you to write and save your code in scripts for later use. Start by opening a new script:
+RStudio allows you to write and organize your code into **scripts**. This helps you save and rerun your code later. You can create a script by clicking **File > New File > R Script**.
 
-- Click on **File > New File > R Script**.
-- Write your code in the script editor, and save it as a `.R` file.
+Here’s how to save a script and run it:
 
-### Example 6: Saving and Running a Script
-
-Let’s create a script that calculates the square of a number:
+### Example: Create a Square Function
 
 ```r
 # square_number.R
@@ -178,11 +151,11 @@ square_number <- function(x) {
   return(x^2)
 }
 
-# Now call the function
+# Call the function
 square_number(5)
 ```
 
-Save this script, and then you can run it directly from the **Console** using the `source()` function:
+Run this script in the console using `source()`:
 
 ```r
 source("square_number.R")
@@ -190,16 +163,88 @@ source("square_number.R")
 
 ---
 
-## 7. Conclusion
+## 7. Piping in R
 
-By the end of today’s session, you should have a solid foundation in basic R syntax, including working with operators, variables, vectors, and writing scripts. Remember, the key to mastering R is practice. The more you experiment with the code, the more comfortable you’ll become!
+Piping with `%>%` is a powerful way to write cleaner and more readable code. The pipe operator allows you to pass the output of one function directly into the next function. It helps avoid nested functions and makes code more intuitive.
+
+Here’s an example of using the pipe operator with **dplyr** functions:
+
+### Example: Basic Data Manipulation with Pipes
+
+```r
+library(dplyr)
+
+# Example Data
+penguins_clean <- janitor::clean_names(penguins_raw)
+
+penguins_clean %>%
+  select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm) %>%
+  drop_na(culmen_length_mm, culmen_depth_mm, flipper_length_mm) %>%
+  mutate(culmen_ratio = culmen_length_mm / culmen_depth_mm) %>%
+  group_by(species, island) %>%
+  summarise(mean_flipper_length = mean(flipper_length_mm),
+            mean_culmen_ratio = mean(culmen_ratio)) %>%
+  arrange(species, island)
+```
+
+This approach is efficient and ensures each step is clearly stated and logically connected.
+
+---
+
+## 8. Penguin Analysis Project
+
+### The penguin analysis project demonstrates how to clean, manipulate, and visualize data using pipes. The task is to calculate the mean flipper length and culmen ratio for each species of penguins, grouped by island.
+
+### Example: Data Cleaning and Summarizing
+
+```r
+library(dplyr)
+library(palmerpenguins)
+
+# Clean data and perform analysis
+penguins_clean <- janitor::clean_names(penguins_raw)
+
+penguins_clean %>%
+  select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm) %>%
+  drop_na(culmen_length_mm, culmen_depth_mm, flipper_length_mm) %>%
+  mutate(culmen_ratio = culmen_length_mm / culmen_depth_mm) %>%
+  group_by(species, island) %>%
+  summarise(mean_flipper_length = mean(flipper_length_mm),
+            mean_culmen_ratio = mean(culmen_ratio)) %>%
+  arrange(species, island) -> penguins_culmen_ratio
+
+# View the summarized table
+print(penguins_culmen_ratio)
+```
+
+### Example: Data Visualization
+
+Here’s how to visualize the relationship between culmen length and depth:
+
+```r
+penguins_clean %>%
+  ggplot(aes(x = culmen_length_mm, y = culmen_depth_mm, color = species)) +
+  geom_point() +
+  labs(x = "Culmen Length (mm)", y = "Culmen Depth (mm)") +
+  theme_minimal()
+```
+
+This visualizes the relationship between the two variables, highlighting species using different colors.
+
+---
+
+## Conclusion
+
+Today we covered key concepts in R, including basic syntax, arithmetic operations, working with vectors, error handling, and organizing code. We also introduced the piping operator (`%>%`) for cleaner, more readable code. The penguin analysis project demonstrated how to apply these techniques in practice.
+
+Stay tuned for more advanced concepts in R in upcoming sessions!
 
 ---
 
 # Assignment
 
-1. Try running a few more arithmetic operations in the R console.
-2. Create a vector with at least 5 elements and access specific values from it.
-3. Write your first R script and save it. Use the `source()` function to run it in the console.
+1. Run additional arithmetic operations and experiment with vectors in the console.
+2. Create a function that calculates the square of a number and run it through a script.
+3. Try using pipes for data manipulation and create a simple visualization of a dataset.
 
 ---

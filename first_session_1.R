@@ -195,7 +195,7 @@ apply(employee_data[, (2,3)], 1, mean)
 
 # is.numeric()
 
-for (col_i in 1:ncol(employee_data)){
+for (col_i in seq_along(employee_data)){
   print(col_i)  
   is_numeric[col_i] <- is.numeric(employee_data[, col_i])
   print(is_numeric)
@@ -203,9 +203,16 @@ for (col_i in 1:ncol(employee_data)){
 
 apply(employee_data[,is_numeric], 1, mean)
 
-#
+# write a for loop instead of the apply function above
+# rm(col_i)
 
 
+for (row_i in  1:nrow(employee_data)){
+  print(mean(as.numeric(employee_data[row_i, is_numeric])))
+}
+
+# 1- storing the outcome of the above workflow in variable
+# 2- define func called mean_cal to find the mean of col or rows based on user preferences
 
 
 

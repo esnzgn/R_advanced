@@ -239,37 +239,25 @@ mean_cal <- function(data, by = "row", is_numeric){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# structure
+project_folder/
+│
+├── data/
+│   ├── data.csv
+│   ├── processed_data.rds
+│
+├── scripts/
+│   ├── data_preparation.R
+│   ├── data_analysis.R
+│   ├── visualization.R
+│   ├── helper_functions.R
+│
+├── output/
+│   ├── result.csv
+│
+├── README.md
+│
+├── project.Rproj
 
 
 

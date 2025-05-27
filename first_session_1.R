@@ -216,21 +216,6 @@ for (row_i in  1:nrow(employee_data)){
 # 1- storing the outcome of the above workflow in variable
 # 2- define func called mean_cal to find the mean of col or rows based on user preferences
 
-mean_cal <- function(data, by = "row", is_numeric){
-  # check if the user want the col or row
-  # data = employee_data; by = "row"
-  if (by == "row"){
-    result <- apply(data[,is_numeric], 1, mean)
-    names(result) <- data$Name
-  } else if (by == "column") {
-    result <- apply(unname(data[,is_numeric]), 2, mean)
-    names(result) <- colnames(data[,is_numeric])
-  }
-  # return final result
-  return(result)
-}
-
-mean_cal(employee_data, by = "column", is_numeric)
 
 
 # structure
@@ -240,11 +225,8 @@ mean_cal(employee_data, by = "column", is_numeric)
 # │   ├── data.csv
 # │   ├── processed_data.rds
 # │
-# ├── scripts/
-# │   ├── data_preparation.R
-# │   ├── data_analysis.R
-# │   ├── visualization.R
-# │   ├── helper_functions.R
+# ├── script/
+# │   ├── func_ls.R
 # │
 # ├── output/
 # │   ├── result.csv
@@ -256,9 +238,15 @@ mean_cal(employee_data, by = "column", is_numeric)
 # ├── viz/
 # ├── result.csv
 
-source("./viz/visualizaiton.R")
+dir.create("./script")
 
-sum_2and2()
+file.create("./script/func_ls.R")
+
+source("./script/func_ls.R")
+
+mean_cal(employee_data, by = "column", is_numeric)
+row_mean_cal(employee_data, is_numeric)
+col_mean_cal(employee_data, is_numeric)
 
 
 
@@ -266,25 +254,9 @@ sum_2and2()
 
 
 
-# structure
-project_folder/
-│
-├── data/
-│   ├── data.csv
-│   ├── processed_data.rds
-│
-├── scripts/
-│   ├── data_preparation.R
-│   ├── data_analysis.R
-│   ├── visualization.R
-│   ├── helper_functions.R
-│
-├── output/
-│   ├── result.csv
-│
-├── README.md
-│
-├── project.Rproj
+
+
+
 
 
 

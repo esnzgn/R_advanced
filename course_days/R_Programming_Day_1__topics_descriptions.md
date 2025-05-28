@@ -7,6 +7,7 @@ This is the first day of our R programming course, where we will lay a strong fo
 
 ## Table of Contents
 
+
 - [Setting up RStudio](#1-setting-up-rstudio)
 - [Basic Arithmetic Operations](#2-basic-arithmetic-operations)
 - [Logical Operators](#3-logical-operators)

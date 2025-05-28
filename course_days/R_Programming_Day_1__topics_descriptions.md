@@ -1,7 +1,7 @@
 
 # R Programming: Day 1 - Introduction, Basics, and Piping
 
-This is the first day of our R programming course, where we will lay a strong foundation by exploring basic R syntax, operators, and functions, followed by practical work with data. By the end of this day, you will be comfortable with basic operations in R, handling data structures, and using pipes (`%>%`) for more readable and efficient code.
+This is the first day of our R programming course, where we will lay a strong foundation by exploring basic R syntax, operators, and functions, followed by practical work with data. By the end of this day, you will be comfortable with basic operations in R, handling data structures, and also an intro about using pipes (`%>%`) for more readable and efficient code.
 
 ---
 

@@ -1,4 +1,4 @@
-# R Programming: Day 2 - Apply Functions, Conditional Statements, and Efficiency
+# R Programming: Day 2 - Apply Functions, Conditional Statements, and Tidyverse
 
 ## Table of Contents
 

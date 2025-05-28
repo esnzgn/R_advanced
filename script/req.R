@@ -11,3 +11,12 @@ library(dplyr)
 library(ggplot2)
 library(palmerpenguins)
 library(tidyr)
+library(tibble)
+library(purrr)
+library(microbenchmark)
+library(foreach)
+library(doParallel)
+
+
+
+

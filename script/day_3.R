@@ -123,6 +123,126 @@ microbenchmark(
   colMeans(matrix_data)
 )
 
+df_mixed <- data.frame(col1 = 1:1000, col2 = rep(letters, length.out = 1000))
+list_mixed <- list(col1 = 1:1000, col2 = rep(letters, length.out = 1000))
+
+microbenchmark(
+  df_mixed$col1,
+  list_mixed[[1]]
+)
+
+# as.list()
+# creat df of penguine
+df_penguins <- (penguins)
+list_penguins <- as.list(df_penguins)
+
+microbenchmark(
+  df_penguins$bill_length_mm,
+  list_penguins[["bill_length_mm"]]
+)
+
+# read I/O ####
+# read.csv
+# fread
+# read_csv
+
+# library(data.table)
+# library(readr)
+csv_name <- "./data/Bird_Dataset_All.csv"
+read.table.timing <- system.time(read.table(csv_name, header = T, sep = ","))
+reader.timing    <-  system.time(read_delim(csv_name, col_names = T, delim = ","))
+data.tale.timing <-  system.time(allData <- fread(csv_name, showProgress = F))
+
+data.frame(method = c("read.table", "readr", "fread"),
+           timing = c(read.table.timing[3], reader.timing[3], data.tale.timing[3]))
+
+
+allData_subsetted_by_fread <- fread(csv_name,
+                           select = c("Year", "Species", "Urban"), showProgress = F)
+
+
+# Tidy 
+# library(tidyverse)
+glimpse(penguins)
+
+penguin_id <- c("P1", "P2", "P3")
+wk1 <- c(2, 3, 1)
+wk2 <- c(4, 1, 2)
+wk3 <- c(3, 2, 4)
+
+View(peng_obs) <- tibble(penguin_id, wk1, wk2, wk3)
+print(peng_obs)
+
+peng_obs_tidy <- peng_obs |>
+                  pivot_longer(cols = wk1:wk3,
+                               names_to = "week",
+                               values_to = "observations")
+
+print(peng_obs_tidy)
+
+# using pen dataset identify which cols represent variables and which rows 
+# represent observations?
+bill_2019 <- c(39.1, 39.5, 40.3)
+bill_2020 <- c(38.7, 41.1, 39.9)
+bill_2021 <- c(40.6, 38.9, 41.2)
+
+bill_data   <-   tibble(penguin_id = c("P1", "P2", "P3"),
+                     bill_2019, bill_2020, bill_2021)
+
+# pivot to long format ####
+bill_long <- bill_data %>% 
+  pivot_longer(
+    cols = starts_with("bill_"),
+    names_to = "year",
+    values_to = "bill_length"
+  )
+
+penguins %>% 
+  select(bill_length_mm, bill_depth_mm)
+  
+penguins %>% 
+  rename(pen_bill_size = bill_length_mm)
+  
+# starts_with(); ends_with(); contains()
+penguins |> 
+  select(island, ends_with("_mm"), everything())
+
+bill_ave <- mean(penguins$bill_length_mm, na.rm = T)
+
+
+penguins %>% 
+  filter(species == "Adelie", bill_length_mm < 43)
+  
+penguins %>% 
+  filter(if_any(contains("bill"), ~ . < 40))
+
+
+penguins %>% 
+  filter(between(bill_length_mm,  38, 42))
+
+penguins %>% 
+  mutate(bill_length_cm = (bill_length_mm / 10))
+
+
+mean(penguins$body_mass_g, na.rm = T)
+
+penguins %>% 
+  mutate(mass_class = case_when(
+    body_mass_g > 5000 ~ "Heavy",
+    body_mass_g > 3500 ~ "Medium",
+    TRUE ~ "Light"
+  )) %>% 
+  View()
+
+
+
+
+
+
+
+
+
+
 
 
 

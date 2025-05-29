@@ -290,14 +290,59 @@ stopCluster(cl)
 print(rbinded_res)
 
 
-# need to be check again
+# need to be check again ####
 res_micro_bench <- microbenchmark(
-                      apply(numeric_cols, 1, mean, na.rm = T),
-                      map_dbl(1:nrow(numeric_cols), ~ mean(as.numeric(numeric_cols[.x,]), na.rm = T)),
+                     apply = apply(numeric_cols, 1, mean, na.rm = T),
+                     map = map_dbl(1:nrow(numeric_cols), ~ mean(as.numeric(numeric_cols[.x,]), na.rm = T)),
+                    foreach = rbinded_res <- foreach(df = species_list, .combine = rbind) %dopar% {
+                      data.frame(
+                        species = unique(df$species),
+                        avg_flipper = mean(df$flipper_length_mm, na.rm = T),
+                        max_mass = max(df$body_mass_g, na.rm = T)
+                      )
+                    },
                       times = 10
                     )
 
+row_means_for <- function(df) {
+                    means <- numeric(nrow(df))
+                    for (i in seq_len(nrow(df))) {
+                      means[i] <- mean(as.numeric(df[i, ]), na.rm = TRUE)
+                    }
+                    return(means)
+                  }
 
 
+res_micro_bench <- microbenchmark(
+  apply = apply(numeric_cols, 1, mean, na.rm = TRUE),
+  map_dbl = map_dbl(1:nrow(numeric_cols), ~ mean(as.numeric(numeric_cols[.x,]), na.rm = TRUE)),
+  internal_for = row_means_for(numeric_cols),
+  times = 20
+)
+head(res_micro_bench)
+
+# Convert to data frame and scale time to milliseconds
+df <- as.data.frame(res_micro_bench)
+df$time_ms <- df$time / 1e6  # Convert nanoseconds to milliseconds
+
+# Boxplot grouped by method
+boxplot(time_ms ~ expr,
+        data = df,
+        log = "y",  # log-scale helps if values differ greatly
+        main = "Microbenchmark Execution Time",
+        ylab = "Execution Time (milliseconds)",
+        xlab = "Method",
+        col = "lightblue")
+
+
+
+ggplot(df, aes(x = expr, y = time_ms, fill = expr)) +
+  geom_boxplot(alpha = 0.7) +
+  scale_y_log10() +
+  labs(title = "Microbenchmark Execution Time",
+       x = "Method",
+       y = "Execution Time (ms)") +
+  theme_minimal() +
+  theme(legend.position = "none")
 
 

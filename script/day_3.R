@@ -234,12 +234,52 @@ penguins %>%
   )) %>% 
   View()
 
+# data("penguins")
+
+# rewrite it using tidy funcs
+# base R code
+desired_ids <- !grepl("sex", colnames(c))
+new_penguins <- penguins[, desired_ids]
+# tidy version
+new_penguins <- penguins %>% 
+  select(-contains("sex")) %>% 
+  View()
+
+penguins %>% 
+  drop_na() %>% 
+  mutate(bill_class = case_when(
+    bill_length_mm > mean(penguins$bill_length_mm, na.rm = T) + 2 * sd(penguins$bill_length_mm, na.rm = T) ~ "very long",
+    bill_length_mm > mean(penguins$bill_length_mm, na.rm = T) ~ "long",
+    TRUE ~ "short"
+  )) %>% 
+  select(species, bill_length_mm, bill_class) %>% 
+  View()
+
+# pivot longer
+penguins %>% 
+  drop_na() %>% 
+  pivot_longer(cols = contains("length"),
+               names_to = "type_measure",
+               values_to = "value_mm")
 
 
+# pivot wider
+penguins %>% 
+  count(species, year) %>% 
+  pivot_wider(names_from = year, values_from = n)
 
+# separate
+df <- tibble(id = c("2020_Gento", "2009_Adelie"))
 
+df %>% 
+  separate(id, into = c("year", "species"), sep = "_")
 
-
+# unlist(strsplit(df$id, split = "_"))
+  
+penguins_mixed <- penguins %>% 
+                    unite("island_species", island, species, sep = "_") 
+penguins_mixed %>% 
+  separate(island_species, into = c("places", "types"), sep = "_")  
 
 
 

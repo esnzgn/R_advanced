@@ -58,6 +58,74 @@ walk(plots_df$plot, print)
 
 
 # second part of 3rd day 
+# timing for effcieny 
+start <- Sys.time()
+global()
+Sys.time() - start
+
+res <- numeric()
+for (i in 1:1000) res[i] <- mean(rnorm(100))
+
+res <- numeric(1000)
+for (i in 1:1000) res[i] <- mean(rnorm(100))
+
+x <- 1:1000000
+global <- function() sum(x)
+local <- function() { y <- 1:1000000
+                        ab <- sum(y)
+                        zy <- ab * 10 }
+
+res_micro_bench <- microbenchmark(global(), local(), times = 10000)
+
+
+
+slow <- function(x) sum(x / length(x)) 
+fast <- cmpfun(slow)
+res_micro_bench <- microbenchmark(slow(x), fast(x), mean(x))
+
+df <- as.data.frame(res_micro_bench)
+df$time_ms <- df$time / 1e6  # Convert nanoseconds to milliseconds
+
+# Boxplot grouped by method
+boxplot(time_ms ~ expr,
+        data = df,
+        log = "y",  # log-scale helps if values differ greatly
+        main = "Microbenchmark Execution Time",
+        ylab = "Execution Time (milliseconds)",
+        xlab = "Funcitons",
+        col = "lightblue")
+
+
+# profile with profvis
+# library(profvis)
+profvis({ sum(rnorm(1e7))})
+
+# catching
+result <- NULL
+my_fun <- function(data) {
+  if (!is.null(result)) return(result)
+  result <<- mean(data); result
+}
+
+# saving data to the disk
+saveRDS(penguins, "./data/data.RDS")
+readRDS("./data/data.RDS")
+
+
+# data structures
+df <- data.frame(col1 = rnorm(1e6), col2 = rnorm(1e6))
+
+matrix_data <- matrix(c(rnorm(1e6), rnorm(1e6)), ncol = 2)
+
+# benchmark
+microbenchmark(
+  colMeans(df),
+  colMeans(matrix_data)
+)
+
+
+
+
 
 
 

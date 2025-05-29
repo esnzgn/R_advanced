@@ -11,10 +11,27 @@ numeric_cols <- penguins_clean |>
 
 map_dbl(numeric_cols, mean)
 
-
 map_int(numeric_cols, ~ round(mean(.x, na.rm = TRUE)))
 
 map_dbl(numeric_cols, ~ mean(.x, na.rm = TRUE))
+
+row_means_for <- function(df) {
+  means <- numeric(nrow(df))
+  for (i in seq_len(nrow(df))) {
+    means[i] <- mean(as.numeric(df[i, ]), na.rm = TRUE)
+  }
+  return(means)
+}
+# apply
+# do a benchmark for the above different maps and also 
+res_micro_bench <- microbenchmark(
+  apply = apply(numeric_cols, 1, mean, na.rm = TRUE),
+  map_dbl = map_dbl(numeric_cols, mean),
+  map_int = map_int(numeric_cols, ~ round(mean(.x, na.rm = TRUE))),
+  map_dbl_na_rm = map_dbl(numeric_cols, ~ mean(.x, na.rm = TRUE)),
+  internal_for = row_means_for(numeric_cols),
+  times = 10
+)
 
 
 nested_penguins <- penguins_clean |> 
@@ -36,4 +53,11 @@ plots_df <- nested_heavy |>
 # library(patchwork)
 wrap_plots(plots_df$plot)
 
-walk(walk(plots_df$plot, print))
+walk(plots_df$plot, print)
+
+
+
+# second part of 3rd day 
+
+
+

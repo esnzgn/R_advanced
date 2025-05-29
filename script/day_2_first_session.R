@@ -312,12 +312,11 @@ row_means_for <- function(df) {
                     return(means)
                   }
 
-
 res_micro_bench <- microbenchmark(
   apply = apply(numeric_cols, 1, mean, na.rm = TRUE),
   map_dbl = map_dbl(1:nrow(numeric_cols), ~ mean(as.numeric(numeric_cols[.x,]), na.rm = TRUE)),
   internal_for = row_means_for(numeric_cols),
-  times = 20
+  times = 10
 )
 head(res_micro_bench)
 
@@ -331,10 +330,8 @@ boxplot(time_ms ~ expr,
         log = "y",  # log-scale helps if values differ greatly
         main = "Microbenchmark Execution Time",
         ylab = "Execution Time (milliseconds)",
-        xlab = "Method",
+        xlab = "Funcitons",
         col = "lightblue")
-
-
 
 ggplot(df, aes(x = expr, y = time_ms, fill = expr)) +
   geom_boxplot(alpha = 0.7) +

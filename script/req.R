@@ -32,4 +32,18 @@ library(profvis)
 library(data.table)
 library(readr)
 
+# BiocManager::install("ggdensity")
+library(ggdist)
+library(ggdensity)
+
+# BiocManager::install("ggridges")
+library(ggridges)
+
+
+#
+# BiocManager::install("gt")
+library(gt)
+
+
+
 

@@ -282,10 +282,99 @@ penguins_mixed %>%
   separate(island_species, into = c("places", "types"), sep = "_")  
 
 
+# ggplot2 ####
+penguins %>% 
+  ggplot()
+
+ggplot(data = penguins)
+
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm,y = body_mass_g))
+
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm,y = body_mass_g)) +
+  geom_point()
+
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm,y = body_mass_g)) +
+  geom_point(aes(colour = species))
+
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+  geom_jitter(aes(colour = species), width = 0.2, alpha = 0.5)
+
+ggplot(penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot(aes(fill = species), alpha = 0.7) 
+
+ggplot(penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot(aes(fill = species), alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(aes(fill = species), width = 0.2)
+
+penguins %>% 
+  drop_na(sex) %>% 
+  ggplot(aes(x = species, y = body_mass_g)) +
+  geom_violin(aes(fill = sex), width = 0.5)
+
+penguins %>% 
+  drop_na(sex) %>% 
+  ggplot(aes(x = species)) +
+  geom_bar()
+
+penguins %>% 
+  drop_na(sex) %>% 
+  ggplot(aes(x = species, fill = species)) +
+  geom_bar()
 
 
+# unique(penguins$species)
+penguins %>% 
+  drop_na(sex) %>% 
+  ggplot(aes(x = species, fill = species)) +
+  geom_bar() +
+  scale_fill_manual(values = c("Adelie" = "skyblue", 
+                                "Gentoo" = "orange",
+                                "Chinstrap" = "purple")) +
+  theme(legend.position = "none")
 
 
+# 
+gap <- 400
+rsq_data <- penguins_clean %>% 
+  group_by(species) %>% 
+  summarise(
+    model = list(lm(body_mass_g ~ flipper_length_mm))
+  ) %>% 
+  mutate(
+    rsq = map_dbl(model, ~summary(.x)$r.squared), 
+    label = paste0("R^2 = ", round(rsq, 2))
+  ) %>% 
+  arrange(desc(rsq)) %>% 
+  mutate(
+    x = 200,
+    y = max(penguins_clean$body_mass_g, na.rm = T) + row_number() * gap
+  )
 
+ggplot(penguins_clean ,aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", level = 0.95) +
+  geom_text(data = rsq_data, aes(x = x, y = y, label = label, colour = species), show.legend = F)
+
+# using base R splitting the char
+species_splited <- substr(penguins$species, start = 1 , stop = 3)
+species_rest <-    substr(penguins$species, start = 4 , stop = nchar(as.character(penguins$species)))
+
+penguins_base <- penguins
+
+penguins_base$first_3 <- species_splited
+penguins_base$rest <- species_rest
 
 

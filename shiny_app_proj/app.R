@@ -8,8 +8,13 @@ ui <- fluidPage(
   titlePanel("Penguin Dashboard"),
   sidebarLayout(
     sidebarPanel(
-      selectInput("species", "Choose Species:",
-                  choices = unique(na.omit(penguins$species))),
+          fluidRow(column(5, selectInput("species", "Choose Species:",
+                      choices = unique(na.omit(penguins$species)))),
+                   column(5, selectInput("sex", "Choose Sex:",
+                                       choices = unique(na.omit(penguins$sex))))
+                    ),
+          fluidRow(column(10, selectInput("island", "Choose Island:",
+                            choices = unique(na.omit(penguins$island)))))
     ),
     mainPanel(
       plotOutput("filtered_plot"),
@@ -36,8 +41,10 @@ server <- function(input, output){
     
   })
   output$summary_text <- renderText({
-    paste0("You selected ", input$species, "penguin. Sample size:",
-           nrow(filtered_data()))
+    tmp_react <- filtered_data()
+    mean(tmp_react$body_mass_g, na.rm = T) %>%
+    paste0("You selected ", input$species, "penguin. Sample size: ",
+           nrow(filtered_data()), ", and the body mass is: ", round(., digits = 2))
   })
 }
 

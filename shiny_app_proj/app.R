@@ -6,17 +6,18 @@ library(ggplot2)
 
 ui <- fluidPage(
   titlePanel("Penguin Dashboard"),
-    sidebarLayout(
-      sidebarPanel(
-        selectInput("species", "Choose Species:",
-                    choices = unique(na.omit(penguins$species))),
-      ),
-      mainPanel(
-        plotOutput("filtered_plot"),
-        DTOutput("filtered_table")
-      )
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("species", "Choose Species:",
+                  choices = unique(na.omit(penguins$species))),
+    ),
+    mainPanel(
+      plotOutput("filtered_plot"),
+      textOutput("summary_text"),
+      DTOutput("filtered_table")
     )
   )
+)
 
 server <- function(input, output){
   filtered_data <- reactive({
@@ -32,6 +33,11 @@ server <- function(input, output){
       ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
       geom_point(aes(colour = sex)) +
       theme_minimal()
+    
+  })
+  output$summary_text <- renderText({
+    paste0("You selected ", input$species, "penguin. Sample size:",
+           nrow(filtered_data()))
   })
 }
 

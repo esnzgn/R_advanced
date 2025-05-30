@@ -12,13 +12,16 @@ ui <- fluidPage(
                       choices = unique(na.omit(penguins$species)))),
                    column(5, selectInput("sex", "Choose Sex:",
                                        choices = unique(na.omit(penguins$sex))))
-                    ),
+                    ), br(),
           fluidRow(column(10, selectInput("island", "Choose Island:",
                             choices = unique(na.omit(penguins$island)))))
     ),
     mainPanel(
       plotOutput("filtered_plot"),
-      textOutput("summary_text"),
+      br(), br(),
+      h2(textOutput("summary_text")),
+      br(), br(),
+      downloadButton("download_data", "Download CSV"),
       DTOutput("filtered_table")
     )
   )
@@ -28,7 +31,9 @@ server <- function(input, output){
   filtered_data <- reactive({
     penguins %>%
       na.omit() %>% 
-      filter(species == input$species)
+      filter(species == input$species,
+             island  == input$island,
+             sex == input$sex)
   })
   output$filtered_table <- renderDT({
     filtered_data()
@@ -46,6 +51,16 @@ server <- function(input, output){
     paste0("You selected ", input$species, "penguin. Sample size: ",
            nrow(filtered_data()), ", and the body mass is: ", round(., digits = 2))
   })
+  output$download_data <- downloadHandler(
+    filename = function() {
+      paste0("penguine_", input$species, ".csv")
+    },
+    content = function(file){
+      write.csv(filtered_data(), file, row.names = F)
+    }
+  )
+  
+  
 }
 
 shinyApp(ui, server)
